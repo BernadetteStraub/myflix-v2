@@ -1,0 +1,15 @@
+<div class="movies-container">
+    <div *ngFor="let movie of movies" class="movie-card">
+      <h2>{{ movie.title }}</h2>
+      <img [src]="getImageUrl(movie.posterPath)" alt="{{ movie.title }}" />
+      <p>{{ movie.overview }}</p>
+      <p>Release Date: {{ movie.releaseDate | date }}</p>
+      <p>Rating: {{ movie.voteAverage }}/10</p>
+    </div>
+</div>
+  
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>

@@ -1,0 +1,71 @@
+@use '@angular/material' as mat;
+
+.header {
+    display: flex;
+    align-items: center; /* Align vertically */
+    justify-content: flex-start; /* Align horizontally */
+    height: 5%;
+  
+    h1 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+  
+      #rcorners1 {
+        border-radius: 10px;
+        width: 50px;  /* Increased width */
+        height: 50px;  /* Increased height */
+        background: #3f51b5;
+        display: flex;
+        justify-content: center;  /* Horizontally center text */
+        align-items: center;  /* Vertically center text */
+        font-size: 28px;  /* Adjust text size */
+        margin-left: 20px;  /* Spacing between "My" and "Flix" */
+        color: white;  /* Text color inside the red box */
+      }
+      
+      /* Style the "Flix" text */
+      span {
+        font-size: 28px; /* Adjust this to make "Flix" larger */
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  
+  .main {
+    display: flex;
+    margin: 20px;
+    height: 95%;
+  
+    .navigation {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+      
+        mat-nav-list {
+          display: flex;
+          flex-direction: column;
+        }
+      
+        a {
+          display: flex;
+          align-items: center;  /* Aligns icon and text vertically centered */
+          padding: 10px 0;
+          text-decoration: none; /* Removes underline from links */
+          
+          /* Ensuring icon and text are aligned horizontally */
+          mat-icon {
+            margin-right: 8px;  /* Adds space between the icon and text */
+            vertical-align: middle; /* Aligns the icon with the text */
+          }
+      
+          div[mat-line] {
+            display: inline-block;  /* Ensures text is inline */
+            vertical-align: middle; /* Aligns text with icon */
+          }
+        }
+      }
+  }
+  

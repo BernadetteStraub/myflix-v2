@@ -1,0 +1,26 @@
+.movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .movie-card {
+    width: 300px;
+    margin: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .movie-card img {
+    width: 100%;
+  }
+  
+  .movie-card h2 {
+    font-size: 1.2em;
+    margin: 10px;
+  }
+  
+  .movie-card p {
+    margin: 10px;
+  }

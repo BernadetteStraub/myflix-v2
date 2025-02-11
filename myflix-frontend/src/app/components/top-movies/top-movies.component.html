@@ -1,0 +1,31 @@
+
+<div class="movies-container">
+    <mat-card *ngFor="let movie of movies" class="movie-card">
+      <img [src]="getImageUrl(movie.posterPath)"/>
+      <mat-card-header>
+        <mat-card-title>
+          {{ movie.title }}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{ movie.overview | slice:0:100 }}{{ movie.overview.length > 100 ? '...' : '' }}
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+            Release Date: {{ movie.releaseDate | date }}
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+            Rating: {{ movie.voteAverage }}/10
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions align="end">
+        <button mat-icon-button matTooltip="add to Favorites">
+            <mat-icon color="accent" fontIcon="favorite"></mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+</div>
+<!--   
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div> -->
