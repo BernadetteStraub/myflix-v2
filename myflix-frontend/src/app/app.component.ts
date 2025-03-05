@@ -6,7 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  search(query: string) {
-    console.log(`Search: ${query}`);
-  }
 }

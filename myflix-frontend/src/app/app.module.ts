@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TopMoviesComponent } from './components/top-movies/top-movies.component';
+import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { provideHttpClient } from '@angular/common/http'; // New way
 import { CommonModule } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -17,11 +17,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopMoviesComponent
+    MovieListComponent,
+    MovieDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,68 @@
+<div class="movie-detail-container">
+    <div *ngIf="loading" class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Loading movie details...</p>
+    </div>
+  
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  
+    <div *ngIf="movie && !loading" class="movie-detail">
+      <div class="backdrop" [style.background-image]="'url(' + getBackdropUrl(movie.backdropPath) + ')'">
+        <div class="backdrop-overlay"></div>
+      </div>
+  
+      <div class="content">
+        <div class="poster-container">
+          <img [src]="getImageUrl(movie.posterPath)" [alt]="movie.title" class="poster">
+        </div>
+  
+        <div class="info-container">
+          <h1 class="title">{{ movie.title }} <span class="year" *ngIf="movie.releaseDate">({{ movie.releaseDate | date:'yyyy' }})</span></h1>
+  
+          <div class="meta-info">
+            <div class="rating">
+              <span class="rating-value">⭐ {{ movie.voteAverage.toFixed(1) }}/10</span>
+              <span class="vote-count">({{ movie.voteCount }} votes)</span>
+            </div>
+  
+            <div class="release-date" *ngIf="movie.releaseDate">
+              Release Date: {{ movie.releaseDate | date:'mediumDate' }}
+            </div>
+  
+            <div class="genres">
+              <span *ngFor="let genreId of movie.genreIds" class="genre-pill">
+                {{ getGenreName(genreId) }}
+              </span>
+            </div>
+          </div>
+  
+          <div class="overview">
+            <h3>Overview</h3>
+            <p>{{ movie.overview }}</p>
+          </div>
+  
+          <div class="additional-info">
+            <div class="info-item">
+              <strong>Original Title:</strong> {{ movie.originalTitle }}
+            </div>
+            <div class="info-item">
+              <strong>Original Language:</strong> {{ movie.originalLanguage | uppercase }}
+            </div>
+            <div class="info-item">
+              <strong>Popularity:</strong> {{ movie.popularity.toFixed(1) }}
+            </div>
+            <div class="info-item" *ngIf="movie.adult">
+              <strong>Adult Content:</strong> Yes
+            </div>
+          </div>
+  
+          <div class="actions">
+            <button class="back-btn" routerLink="/">← Back to Movies</button>
+            <button class="favorite-btn">Add to Favorites</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

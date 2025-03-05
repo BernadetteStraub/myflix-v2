@@ -1,0 +1,86 @@
+
+<div class="trending-movies-container">
+  <div class="trending-header">
+    <h2>Trending Movies {{ timeWindow === 'day' ? 'This Week' : 'Today' }}</h2>    
+    <div class="actions">
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input #searchInput type="text" matInput placeholder="Search" 
+          autocomplete="off" 
+          (keyup.enter)="search(searchInput.value)">
+          <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" 
+          (click)="clearSearch(searchInput)">
+          <mat-icon>close</mat-icon>
+          </button>
+        <mat-icon matSuffix (click)="search(searchInput.value)">search</mat-icon>
+      </mat-form-field>
+      <button [disabled]="isSearching" (click)="toggleTimeWindow()" class="toggle-btn">
+        {{ timeWindow === 'day' ? 'Daily Trending' : 'Weekly Trending' }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading trending movies...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="isSearching && !loading && movies.length === 0" class="no-results">
+    <p>No movies found matching "{{ searchTerm }}"</p>
+    <button (click)="clearSearch(searchInput)" class="back-btn">Back to Top Movies</button>
+  </div>
+
+  <div *ngIf="!loading && !error && movies.length > 0" class="movie-grid">
+    <div *ngFor="let movie of movies" class="movie-card">
+      <div class="poster-container">
+        <img [src]="getImageUrl(movie.posterPath)" [alt]="movie.title" class="movie-poster">
+        <div class="poster-overlay">
+          <div class="quick-info">
+            <span class="rating">⭐ {{ movie.voteAverage.toFixed(1) }}</span>
+            <span class="year" *ngIf="movie.releaseDate">{{ movie.releaseDate | date:'yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="movie-info">
+        <div class="title-row">
+          <a [routerLink]="['/movie', movie.id]">
+            <h3 class="movie-title" [title]="movie.title">{{ movie.title }}</h3>
+          </a>
+        </div>
+        
+        <div class="details-row">
+          <span class="genre" *ngIf="movie.genreIds && movie.genreIds.length > 0">
+            {{ getMainGenre(movie.genreIds[0]) }}
+          </span>
+          <span class="popularity">
+            <mat-icon fontIcon="trending_up" class="trend-icon"></mat-icon>{{ movie.popularity | number:'1.0-0' }}
+          </span>
+        </div>
+        
+        <div class="actions-row">
+          <button mat-icon-button matTooltip="Add to Watchlist">
+            <mat-icon color="primary" fontIcon="visibility"></mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Add to Favorites">
+            <mat-icon color="accent" fontIcon="favorite"></mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="totalPages > 1" class="pagination">
+    <button [disabled]="currentPage === 1" (click)="previousPage()" class="page-btn">
+      Previous
+    </button>
+    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button [disabled]="currentPage === totalPages" (click)="nextPage()" class="page-btn">
+      Next
+    </button>
+  </div>
+</div>

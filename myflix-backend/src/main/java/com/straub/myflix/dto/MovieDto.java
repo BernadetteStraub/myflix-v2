@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
-//instead of @Value to keep mutable (
-@JsonIgnoreProperties(ignoreUnknown = true)  // Add this to ignore unknown fields
+@JsonIgnoreProperties(ignoreUnknown = true)  //ignore unknown fields
 public record MovieDto(boolean adult,
                        @JsonAlias("backdrop_path") String backdropPath,
                        @JsonAlias("genre_ids") List<Integer> genreIds,

@@ -1,36 +1,26 @@
-<!-- <div class="app-container">
-  <h1>Welcome to MyFlix</h1>
-  <app-top-movies></app-top-movies>
-</div> -->
-
-<header class="header">
-  <h1>
-    <p id="rcorners1">My</p>
-    <span>Flix</span>
-  </h1>
-</header>
-
-
 <div class="main">
   <nav class="navigation">
-    <form class="search-form">
-      <mat-form-field>
-        <mat-label>Search</mat-label>
-        <input #input type="text" matInput placeholder="Search" autocomplete="off">
-        <mat-icon matSuffix (click)="search(input.value.toString())">search</mat-icon>
-      </mat-form-field>
-    </form>
+    <h1>
+      <p id="rcorners1">My</p>
+      <span>Flix</span>
+    </h1>
     <mat-nav-list>
       <a mat-list-item routerLink="/" routerLinkActive="active">
         <mat-icon mat-list-icon color="primary">home</mat-icon>
         <div mat-line>Home</div>
       </a>
-      <a mat-list-item routerLink="feed/trending" routerLinkActive="active">
+      <a mat-list-item routerLink="/" routerLinkActive="active">
         <mat-icon mat-list-icon color="accent">favorite</mat-icon>
         <div mat-line>Favorites</div>
+      </a>
+      <a mat-list-item routerLink="/" routerLinkActive="active">
+        <mat-icon mat-list-icon color="primary">visibility</mat-icon>
+        <div mat-line>Watchlist</div>
       </a>
    </mat-nav-list>
   </nav>
   
+  <div class="content">
   <router-outlet></router-outlet>
+</div>
 </div>

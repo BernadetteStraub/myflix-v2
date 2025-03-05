@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 
 export interface Movie {
-    // Define the fields based on your DTO
   adult: boolean;
   backdropPath: string;
   genreIds: number[];
@@ -27,9 +26,18 @@ export interface Movie {
     totalPages: number;
     totalResults: number;
   }
+
+  export interface Genre {
+    id: number;
+    name: string;
+  }
+  
+  export interface GenreListResponse {
+    genres: Genre[];
+  }
   
   @Injectable({
-    providedIn: 'root', // This makes the service available application-wide
+    providedIn: 'root',
   })
   export class MovieService {
     private apiUrl = 'http://localhost:8080/api/movies';
@@ -39,4 +47,28 @@ export interface Movie {
     getTopRatedMovies(page: number = 1): Observable<ApiResponse> {
       return this.http.get<ApiResponse>(`${this.apiUrl}/top-rated?page=${page}`);
     }
+    
+    getTrendingMovies(timeWindow: string = 'day', page: number = 1): Observable<ApiResponse> {
+      return this.http.get<ApiResponse>(`${this.apiUrl}/trending?timeWindow=${timeWindow}&page=${page}`);
+    }
+
+    getMovieDetails(id: number): Observable<Movie> {
+      return this.http.get<Movie>(`${this.apiUrl}/detail/${id}`);
+    }
+    
+    getGenres(): Observable<GenreListResponse> {
+      return this.http.get<GenreListResponse>(`${this.apiUrl}/genres`);
+    }
+    
+    searchMovies(query: string, page: number = 1): Observable<ApiResponse> {
+      return this.http.get<ApiResponse>(`${this.apiUrl}/search?query=${encodeURIComponent(query)}&page=${page}`);
+    }
+    
+    // addToFavorites(movieId: number): Observable<any> {
+    //   return this.http.post(`${this.apiUrl}/favorites`, { movieId });
+    // }
+    
+    // getFavorites(): Observable<ApiResponse> {
+    //   return this.http.get<ApiResponse>(`${this.apiUrl}/favorites`);
+    // }
   }

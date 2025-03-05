@@ -1,0 +1,253 @@
+.trending-movies-container {
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.trending-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  
+  h2 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  margin: 2rem 0;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  
+  p {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.toggle-btn {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 1rem 1.8rem;
+  margin-left: 1rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  position: relative; 
+  top: -7px;
+  
+  &:hover {
+    background-color: #29367c;
+  }
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.movie-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    
+    .poster-overlay {
+      opacity: 1;
+    }
+  }
+  
+  .poster-container {
+    position: relative;
+    overflow: hidden;
+    
+    .movie-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .poster-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      padding: 8px;
+      opacity: 1;
+      
+      .quick-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-weight: 500;
+        
+        .rating {
+          background-color: rgba(0, 0, 0, 0.5);
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 0.875rem;
+        }
+        
+        .year {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+  
+  .movie-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+    
+    a {
+      text-decoration: none;
+    }
+    
+    .title-row {
+      margin-bottom: 4px;
+      
+      .movie-title {
+        margin: 0;
+        font-size: 1rem;
+        color: #3f51b5;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
+        &:hover {
+          color: #5b74ff;
+        }
+      }
+    }
+    
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 4px;
+      
+      .trend-icon {
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+        vertical-align: text-bottom;
+        margin-right: 2px;
+      }
+    }
+    
+    .actions-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+      
+    }
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(3, 37, 65, 0.1);
+    border-left-color: #032541;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  p {
+    margin-top: 1rem;
+    color: #666;
+  }
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: #e53935;
+  background-color: rgba(229, 57, 53, 0.1);
+  border-radius: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  
+  .page-btn {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  
+  
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    
+    &:not(:disabled):hover {
+      background-color: #29367c;    
+    }
+  }
+  
+  .page-info {
+    margin: 0 1rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .trending-movies-container {
+    padding: 1rem;
+  }
+  
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  
+  .trending-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

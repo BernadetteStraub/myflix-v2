@@ -1,10 +1,12 @@
 package com.straub.myflix.service;
 
-import com.straub.myflix.dto.ApiResponse;
+import com.straub.myflix.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Service
 public class MovieService {
@@ -18,28 +20,6 @@ public class MovieService {
     @Autowired
     private WebClient webClient;
 
-//    public ApiResponse getTopRatedMovies(int page) {
-//        try {
-//            ApiResponse response = webClient.get()
-//                    .uri(uriBuilder -> uriBuilder
-//                            .path("/movie/top_rated")
-//                            .queryParam("api_key", apiKey)
-//                            .queryParam("page", page)
-//                            .build())
-//                    .retrieve()
-//                    .bodyToMono(ApiResponse.class)
-//                    .block();
-//
-//            // Log the response
-//            System.out.println("TMDb API Response: " + response);
-//            return response;
-//        } catch (Exception e) {
-//            // Log the error
-//            System.err.println("Error fetching data from TMDb: " + e.getMessage());
-//            e.printStackTrace();  // Log the full stack trace for debugging
-//            throw new RuntimeException("Failed to fetch top-rated movies", e);
-//        }
-//    }
 
     public ApiResponse getTopRatedMovies(int page) {
         String rawResponse = webClient.get()
@@ -49,12 +29,12 @@ public class MovieService {
                         .queryParam("page", page)
                         .build())
                 .retrieve()
-                .bodyToMono(String.class)  // Get the raw response as String
+                .bodyToMono(String.class)
                 .block();
 
-        System.out.println("Raw TMDb Response: " + rawResponse);  // Log the raw response
+        System.out.println("Raw TMDb Response: " + rawResponse);
 
-        // Now, deserialize into ApiResponse
+        //deserialize into ApiResponse
         ApiResponse apiResponse = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/movie/top_rated")
@@ -67,4 +47,56 @@ public class MovieService {
 
         return apiResponse;
     }
+
+    public ApiResponse getTrendingMovies(String timeWindow, int page) {
+        final String timeWindowToUse = (!timeWindow.equals("day") && !timeWindow.equals("week"))
+                ? "day" : timeWindow;
+
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/trending/movie/" + timeWindowToUse)
+                        .queryParam("api_key", apiKey)
+                        .queryParam("page", page)
+                        .build())
+                .retrieve()
+                .bodyToMono(ApiResponse.class)
+                .block();
+    }
+
+    public MovieDetailDto getMovieDetails(int movieId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/movie/" + movieId)
+                        .queryParam("api_key", apiKey)
+                        .queryParam("append_to_response", "credits,videos,images")
+                        .build())
+                .retrieve()
+                .bodyToMono(MovieDetailDto.class)
+                .block();
+    }
+
+    public GenreListDto getGenres() {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/genre/movie/list")
+                        .queryParam("api_key", apiKey)
+                        .build())
+                .retrieve()
+                .bodyToMono(GenreListDto.class)
+                .block();
+    }
+
+    public ApiResponse searchMovies(String query, int page) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/search/movie")
+                        .queryParam("api_key", apiKey)
+                        .queryParam("query", query)
+                        .queryParam("page", page)
+                        .build())
+                .retrieve()
+                .bodyToMono(ApiResponse.class)
+                .block();
+    }
+
 }

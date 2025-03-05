@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TopMoviesComponent } from './components/top-movies/top-movies.component';
+import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 
 const routes: Routes = [
-  { path: '', component: TopMoviesComponent },
-  // { path: 'feed/:type', component: FeedComponent },
-  { path: '**', component: TopMoviesComponent },  // Wildcard route for a 404 page redirects to Home
+  { path: '', component: MovieListComponent },
+  { path: 'movie/:id', component: MovieDetailComponent },
+  { path: '**', component: MovieListComponent },
 ];
 
 @NgModule({

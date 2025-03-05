@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)  // Add this to ignore unknown fields
+@JsonIgnoreProperties(ignoreUnknown = true)  //ignore unknown fields
 public record ApiResponse(int page,
                           List<MovieDto> results,
                           @JsonAlias("total_pages") int totalPages,
